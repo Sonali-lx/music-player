@@ -18,7 +18,7 @@ connectDB();
 // for secutity, in backend
 app.use(
   cors({
-    origin: "http://localhost:5173", // to allow cross-origin requests
+    origin: "https://music-player-sigma-green.vercel.app/", // to allow cross-origin requests
     // when we create a react application using vite, then 5173 is common
     // origin: "*" -> access to all
     // only the above frontend can access the backend
