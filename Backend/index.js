@@ -15,17 +15,30 @@ app.use(express.json()); // data from backend into json fromat and then process 
 // connect your database
 connectDB();
 
-// for secutity, in backend
-app.use(
-  cors({
-    origin: "https://music-player-sigma-green.vercel.app", // to allow cross-origin requests
-    // when we create a react application using vite, then 5173 is common
+
+const allowedOrigins = [
+  "http://localhost:5173", // to allow cross-origin requests
+   // when we create a react application using vite, then 5173 is common
     // origin: "*" -> access to all
     // only the above frontend can access the backend
     // in 5173 -> react front end runs
+  "https://music-player-sigma-green.vercel.app"
+];
+
+// for secutity, in backend
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
-  }),
+  })
 );
+
 
 // / -> home ------> routing
 // **********
